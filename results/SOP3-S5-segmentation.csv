@@ -1,0 +1,10 @@
+Cycle,Indicator,T1,T2,T3,T4,T5,Mean,Threshold,Pass
+S5-cycle0,S5 micro-segmentation: cross-zone attempts dropped (%) [n=100/trial],100.000,100.000,100.000,100.000,100.000,100.000,>=99,PASS
+S5-cycle0,  packets blocked at OPNsense (%) [block lines / all lines of the test tuples],100.000,100.000,100.000,100.000,100.000,100.000,(reported),
+S5-cycle0,"  packets blocked (count, SYN + retransmits)",157,157,155,146,155,154.000,(reported),
+S5-cycle0,"  pf block-rule counter delta, rules 300/700/900/1000 (packets)",157,157,156,146,155,154.200,(>= block lines),
+S5-cycle0,Same-VLAN (separate): student<->student attempts dropped by host firewall (%) [n=20/trial],100.000,100.000,100.000,100.000,100.000,100.000,(reported),
+S5-cycle0,  same-VLAN drops logged in target pfirewall.log (count; expected 10 = ports with a listening service),10,10,10,10,10,10.000,(expected 10),
+S5-cycle0,"Negative control: 1 broken cross-zone + 1 broken same-VLAN case per trial (cross-zone dropped, %)",99.000,99.000,99.000,99.000,99.000,99.000,(expected 99),exactly the broken cases reported not dropped (s5_count.py --negcontrol)
+
+Note,"Dropped (cross-zone) = OPNsense block-in line(s) for the exact 4-tuple within +-30 s, no pass line, and a silent client timeout. Same-VLAN dropped = silent client timeout with no OPNsense line; Windows logs drops only for listening ports. Method: plan/s5-segmentation-design.md"

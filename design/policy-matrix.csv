@@ -1,0 +1,10 @@
+Role,FromZone,Target,AllowedPorts
+Student,*,Local,445;139
+Student,*,Server,53;88;389
+Instructor,*,Local,445;139;3389
+Instructor,*,Server,53;88;389
+ZTNA-Admin,*,Local,445;3389;5985
+ZTNA-Admin,StudentWS,Server,53;88;389;445;5985
+ZTNA-Admin,InstructorWS,Server,53;88;389;445;5985
+ZTNA-Admin,Server,StudentWS,5985
+ZTNA-Admin,Server,InstructorWS,5985

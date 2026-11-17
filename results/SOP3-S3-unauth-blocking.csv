@@ -1,0 +1,45 @@
+Cycle,Indicator,T1,T2,T3,T4,T5,Mean,Threshold,Pass
+S3-cycle0,"Unauthorized authentication blocking, all 100 cases (%)",100.000,100.000,100.000,100.000,100.000,100.000,>=99,PASS
+S3-cycle0,"  of which workstation LogonUser, 60 cases (%)",100.000,100.000,100.000,100.000,100.000,100.000,(reported),
+S3-cycle0,"  of which PDP policy script, 40 cases (%)",100.000,100.000,100.000,100.000,100.000,100.000,(reported),
+
+Mechanism,Category,Cases per trial,Denied over 5 trials,Rate %
+LogonUser,brute-force,38,190/190,100.0
+LogonUser,disabled-account,4,20/20,100.0
+LogonUser,locked-correct-password,2,10/10,100.0
+LogonUser,service-identity-logon,3,15/15,100.0
+LogonUser,unknown-account,4,20/20,100.0
+LogonUser,wrong-role-logon,9,45/45,100.0
+PDP,device-role-mismatch,2,10/10,100.0
+PDP,disabled-account,3,15/15,100.0
+PDP,instructor-to-server,4,20/20,100.0
+PDP,locked-account,2,10/10,100.0
+PDP,mac-mismatch,4,20/20,100.0
+PDP,peer-workstation,4,20/20,100.0
+PDP,service-identity,2,10/10,100.0
+PDP,student-cross-zone,4,20/20,100.0
+PDP,student-to-server,8,40/40,100.0
+PDP,unknown-identity,3,15/15,100.0
+PDP,unregistered-device,4,20/20,100.0
+
+Mechanism,Category,Observed code / reason,Attribution,Count over 5 trials
+LogonUser,brute-force,1326,as expected,50
+LogonUser,brute-force,1909,as expected,140
+LogonUser,disabled-account,1331,as expected,20
+LogonUser,locked-correct-password,1909,as expected,10
+LogonUser,service-identity-logon,1385,as expected,15
+LogonUser,unknown-account,1326,as expected,20
+LogonUser,wrong-role-logon,1385,as expected,45
+PDP,device-role-mismatch,DENY_DEVICE_ROLE_MISMATCH,as expected,10
+PDP,disabled-account,DENY_USER_DISABLED,as expected,15
+PDP,instructor-to-server,DENY_PORT_NOT_PERMITTED,as expected,20
+PDP,locked-account,DENY_USER_LOCKED,as expected,10
+PDP,mac-mismatch,DENY_MAC_MISMATCH,as expected,20
+PDP,peer-workstation,DENY_PEER_WORKSTATION,as expected,20
+PDP,service-identity,DENY_ROLE_UNKNOWN,as expected,10
+PDP,student-cross-zone,DENY_NO_POLICY_ENTRY,as expected,20
+PDP,student-to-server,DENY_PORT_NOT_PERMITTED,as expected,40
+PDP,unknown-identity,DENY_USER_UNKNOWN,as expected,15
+PDP,unregistered-device,DENY_DEVICE_UNREGISTERED,as expected,20
+
+Note,"Denied at the PDP = AD DS (credential validation, lockout, account state, GPO logon rights) or the PDP policy script; every denial is attributed by Win32 error code / PDP reason."

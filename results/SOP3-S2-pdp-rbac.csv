@@ -1,0 +1,13 @@
+Cycle,Indicator,T1,T2,T3,T4,T5,Mean,Threshold,Pass
+cycle0,Policy decision latency mean (ms),3.950,,,,,3.950 (n=1),<=200,incomplete
+cycle0,Policy decision latency p95 (ms),5.014,,,,,5.014 (n=1),(reported),
+cycle0,RBAC enforcement accuracy (%),95.000,,,,,95.000 (n=1),>=99,incomplete
+cycle0,"Warm-up call, discarded (ms)",238.398,,,,,238.398 (n=1),(declared),
+cycle1,Policy decision latency mean (ms),3.781,3.937,4.114,3.651,4.083,3.913,<=200,PASS
+cycle1,Policy decision latency p95 (ms),4.209,4.030,4.416,3.916,4.381,4.190,(reported),
+cycle1,RBAC enforcement accuracy (%),95.000,95.000,95.000,95.000,95.000,95.000,>=99,FAIL
+cycle1,"Warm-up call, discarded (ms)",98.230,94.167,93.955,94.638,92.542,94.706,(declared),
+cycle2,Policy decision latency mean (ms),4.427,4.458,4.188,4.260,4.447,4.356,<=200,PASS
+cycle2,Policy decision latency p95 (ms),4.324,4.382,4.416,4.412,4.131,4.333,(reported),
+cycle2,RBAC enforcement accuracy (%),100.000,100.000,100.000,100.000,100.000,100.000,>=99,PASS
+cycle2,"Warm-up call, discarded (ms)",91.485,90.374,94.053,96.479,95.736,93.625,(declared),

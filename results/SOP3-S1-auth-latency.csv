@@ -1,0 +1,7 @@
+Cycle,Indicator,T1,T2,T3,T4,T5,Mean,Threshold,Pass
+S1-cycle0,Authentication latency mean (ms),19.372,17.188,17.285,17.165,17.218,17.646,<=300,PASS
+S1-cycle0,Authentication latency p95 (ms),25.991,17.957,18.482,18.168,18.305,19.781,<=300,PASS
+S1-cycle0,Successful authentications (of 100),100,100,100,100,100,100.0,(all expected),
+S1-cycle0,"Mean excluding the 3 cold first calls (ms, reference)",17.969,16.958,17.061,16.930,16.957,17.175,(reported),
+S1-cycle0,Note,Indicator PASS requires both mean and p95 <= 300 ms; cold first calls included,,,,,,,
+S1-cycle0,DC01 4768 (status 0) from the workstations inside each trial window,100,100,100,100,100,100.0,(one per logon),checked with tools/ps/s1krb.ps1

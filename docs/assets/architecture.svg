@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="Inter, Segoe UI, Arial, sans-serif">
+  <title>ZTNA test-bed architecture</title>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrlog" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="960" height="580" fill="#ffffff"/>
+
+  <!-- Proxmox host -->
+  <rect x="16" y="16" width="928" height="548" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="34" y="44" font-size="15" font-weight="700" fill="#0f172a">Proxmox VE host</text>
+  <text x="34" y="62" font-size="12" fill="#64748b">VLAN-aware bridge vmbr1 separates the zones at layer 2 · every inter-zone packet must cross the PEP</text>
+
+  <!-- PEP -->
+  <rect x="340" y="92" width="280" height="96" rx="12" fill="#0f172a"/>
+  <text x="480" y="122" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">OPNsense · PEP</text>
+  <text x="480" y="142" font-size="12" fill="#cbd5e1" text-anchor="middle">default-deny per zone, all logged</text>
+  <text x="480" y="160" font-size="12" fill="#cbd5e1" text-anchor="middle">registered-MAC gate · reservation-only DHCP</text>
+  <text x="480" y="178" font-size="11" fill="#94a3b8" text-anchor="middle">VLAN trunk 11 / 20 / 30</text>
+
+  <!-- zones -->
+  <!-- Students -->
+  <rect x="40" y="250" width="280" height="200" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="58" y="276" font-size="13" font-weight="700" fill="#1d4ed8">Student zone · VLAN 11</text>
+  <rect x="58" y="292" width="116" height="62" rx="8" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="116" y="318" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle">Student1</text>
+  <text x="116" y="337" font-size="11" fill="#64748b" text-anchor="middle">Windows 11</text>
+  <rect x="186" y="292" width="116" height="62" rx="8" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="244" y="318" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle">Student2</text>
+  <text x="244" y="337" font-size="11" fill="#64748b" text-anchor="middle">Windows 11</text>
+  <path d="M128,354 C128,392 232,392 232,362" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrx)"/>
+  <text x="180" y="402" font-size="11" fill="#dc2626" text-anchor="middle">blocked</text>
+  <text x="58" y="424" font-size="11.5" fill="#334155">Host firewall (GPO only) blocks</text>
+  <text x="58" y="440" font-size="11.5" fill="#334155">same-VLAN lateral movement</text>
+
+  <!-- Instructor -->
+  <rect x="340" y="250" width="280" height="200" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="358" y="276" font-size="13" font-weight="700" fill="#047857">Instructor zone · VLAN 20</text>
+  <rect x="422" y="292" width="116" height="62" rx="8" fill="#ffffff" stroke="#6ee7b7"/>
+  <text x="480" y="318" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle">Instructor1</text>
+  <text x="480" y="337" font-size="11" fill="#64748b" text-anchor="middle">Windows 11</text>
+  <text x="358" y="378" font-size="11.5" fill="#334155">Students are denied interactive</text>
+  <text x="358" y="394" font-size="11.5" fill="#334155">logon here (GPO user rights)</text>
+
+  <!-- Server -->
+  <rect x="640" y="250" width="280" height="200" rx="12" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="658" y="276" font-size="13" font-weight="700" fill="#6d28d9">Server zone · VLAN 30</text>
+  <rect x="658" y="292" width="244" height="86" rx="8" fill="#ffffff" stroke="#c4b5fd"/>
+  <text x="780" y="316" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">DC01 · PDP</text>
+  <text x="780" y="335" font-size="11" fill="#64748b" text-anchor="middle">Windows Server 2022 · AD DS · Group Policy</text>
+  <text x="780" y="351" font-size="11" fill="#64748b" text-anchor="middle">policy decision script (reason codes)</text>
+  <text x="780" y="367" font-size="11" fill="#64748b" text-anchor="middle">Windows Event Forwarding collector</text>
+  <text x="658" y="400" font-size="11.5" fill="#334155">PDP checks: user (enabled, not locked,</text>
+  <text x="658" y="416" font-size="11.5" fill="#334155">role) → device (registered, MAC) →</text>
+  <text x="658" y="432" font-size="11.5" fill="#334155">policy matrix D202-ZTNA-1.1</text>
+
+  <!-- trunk links -->
+  <path d="M180,250 L180,215 L430,215 L430,188" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M480,250 L480,188" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M780,250 L780,215 L530,215 L530,188" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="196" y="208" font-size="11" fill="#475569">access port, tag 11</text>
+  <text x="488" y="232" font-size="11" fill="#475569">tag 20</text>
+  <text x="640" y="208" font-size="11" fill="#475569">tag 30</text>
+
+  <!-- logs -->
+
+  <!-- legend -->
+  <g transform="translate(40,478)">
+    <line x1="0" y1="10" x2="26" y2="10" stroke="#475569" stroke-width="2"/>
+    <text x="34" y="14" font-size="12" fill="#334155">allowed only via PEP (domain services, DNS)</text>
+    <line x1="330" y1="10" x2="356" y2="10" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="364" y="14" font-size="12" fill="#334155">lateral movement, dropped and logged</text>
+    <text x="0" y="36" font-size="12" fill="#7c3aed">Logging: workstation events forwarded to DC01 (WEF) · PDP decisions in DC01 Application log · firewall log on OPNsense</text>
+    <text x="0" y="56" font-size="12" fill="#64748b">Measured: auth 17.6 ms · PDP 4.36 ms · RBAC 100% · blocking 100% · segmentation 100% · logging 100%</text>
+  </g>
+</svg>

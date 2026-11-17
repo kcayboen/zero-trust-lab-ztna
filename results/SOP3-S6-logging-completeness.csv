@@ -1,0 +1,11 @@
+Cycle,Indicator,T1,T2,T3,T4,T5,Mean,Threshold,Pass
+S6-cycle0,"Logging completeness, all 100 events (%) [n=100/trial]",100.000,100.000,100.000,100.000,100.000,100.000,100,PASS
+S6-cycle0,  Authentication family (%) [n=40/trial],100.000,100.000,100.000,100.000,100.000,100.000,(reported),
+S6-cycle0,  Authorization family (%) [n=30/trial],100.000,100.000,100.000,100.000,100.000,100.000,(reported),
+S6-cycle0,  Network family (%) [n=30/trial],100.000,100.000,100.000,100.000,100.000,100.000,(reported),
+S6-cycle0,  granted events (%) [n=50/trial],100.000,100.000,100.000,100.000,100.000,100.000,(reported),
+S6-cycle0,  denied events (%) [n=50/trial],100.000,100.000,100.000,100.000,100.000,100.000,(reported),
+S6-cycle0,Re-count offline with +-30 s time check,100.000,100.000,100.000,100.000,100.000,100.000,(check),s6_count.py --offline
+S6-cycle0,Negative control: 3 deliberately broken cases per trial,97.000,97.000,97.000,97.000,97.000,97.000,(expected 97),exactly the 3 broken cases must be reported missed (s6_count.py --negcontrol)
+
+Note,"Captured = event present in its sink: Authentication -> DC01 ForwardedEvents (4624 LogonType 2 / 4625 from that workstation for that user); Authorization -> DC01 Application log, source ZTNA-PDP (4100/4101 with case= and trial=); Network -> OPNsense local filter log (direction in, expected action, exact src/dst IP and port). Method: plan/s6-logging-design.md"
