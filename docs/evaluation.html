@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZTNA D202 Evaluator Review</title>
+<meta name="description" content="Review material for the Post-Simulation Readiness Evaluation of the ZTNA model for Computer Laboratory D202.">
+<style>
+:root{--bg:#fff;--bg2:#f6f8fb;--ink:#0f172a;--muted:#5b6678;--line:#e2e8f0;--card:#fff;--accent:#2563eb;--chip:#eef2ff;--chip-ink:#3730a3}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0b1020;--bg2:#111829;--ink:#e6eaf2;--muted:#9aa6bb;--line:#24304a;--card:#121a2e;--accent:#6ea8ff;--chip:#1e2547;--chip-ink:#c7d2fe}}
+:root[data-theme="dark"]{--bg:#0b1020;--bg2:#111829;--ink:#e6eaf2;--muted:#9aa6bb;--line:#24304a;--card:#121a2e;--accent:#6ea8ff;--chip:#1e2547;--chip-ink:#c7d2fe}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Inter","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+header{background:var(--bg2);border-bottom:1px solid var(--line);padding:40px 0 28px}
+h1{font-size:clamp(1.6rem,3.6vw,2.2rem);line-height:1.2;margin:6px 0 10px}
+.kicker{text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;color:var(--muted)}
+section{padding:36px 0;border-bottom:1px solid var(--line)}
+h2{font-size:1.4rem;margin:0 0 8px}
+h3{font-size:1.1rem;margin:22px 0 6px}
+.dl{display:inline-block;background:var(--ink);color:var(--bg);border-radius:6px;padding:1px 8px;font-size:.85rem;margin-right:6px}
+p{margin:8px 0}
+.muted{color:var(--muted)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:14px 0}
+ol.toc{margin:6px 0;padding-left:20px}
+table{width:100%;border-collapse:collapse;font-size:.93rem;margin:10px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg2)}
+td.n{white-space:nowrap;font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto}
+.items{font-size:.88rem;color:var(--muted)}
+.items span{display:inline-block;background:var(--chip);color:var(--chip-ink);border-radius:999px;padding:1px 9px;margin:0 2px;font-weight:600}
+.figs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:700px){.figs{grid-template-columns:1fr}}
+figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+figure img{width:100%;display:block;background:#0b1220}
+figcaption{padding:8px 10px;font-size:.86rem}
+figcaption b{display:block;margin-bottom:2px}
+figcaption span{color:var(--muted)}
+.arch{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px}
+.arch img{width:100%;display:block}
+ul{margin:6px 0;padding-left:20px}
+li{margin:4px 0}
+footer{padding:28px 0;color:var(--muted);font-size:.9rem}
+@media print{header{background:none}section{break-inside:auto}figure{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="kicker">Phase 3 · Post-Simulation Readiness Evaluation · Review material</div>
+  <h1>Zero Trust Network Access model for Computer Laboratory D202</h1>
+  <p>This page presents the virtual simulation of the proposed ZTNA model for your review before you complete the
+     <b>Post-Simulation Readiness Evaluation (Appendix B, Part II)</b>. It covers the same steps that were shown in the live
+     demonstration, documented with screen captures from the running test-bed. Reading it takes about 30 to 40 minutes.</p>
+  <p class="muted">Figure numbers (H1 to H36) are the same as in Appendix H of the manuscript. Click any figure to open it at full size.</p>
+</div></header>
+
+<main class="wrap">
+
+<section>
+  <h2>How to use this page</h2>
+  <ol class="toc">
+    <li><a href="#built">What was built</a></li>
+    <li><a href="#segmentation">Network zones and the enforcement point</a></li>
+    <li><a href="#identity">Identity, roles and policy decisions</a></li>
+    <li><a href="#demos">The five demonstrations</a></li>
+    <li><a href="#results">Measured performance</a></li>
+    <li><a href="#operations">What running it would involve</a></li>
+    <li><a href="#limits">Limitations and changes from the plan</a></li>
+  </ol>
+  <div class="box">
+    <b>Where to look for each item.</b> Items C1 to C6 ask about the actual laboratory and its staff, so they rely mainly on your
+    own knowledge; the sections below provide context for them. Items D1 to D3 ask for your judgment after reviewing the simulation.
+    <div class="tbl"><table>
+      <tr><th>Item</th><th>Topic</th><th>Most relevant sections</th></tr>
+      <tr><td>C1</td><td>Infrastructure support for identity-aware access control</td><td><a href="#identity">3</a>, <a href="#operations">6</a></td></tr>
+      <tr><td>C2</td><td>Network support for segmentation (VLAN and firewall)</td><td><a href="#segmentation">2</a>, <a href="#demos">4 (Demo C)</a></td></tr>
+      <tr><td>C3</td><td>IT personnel capability to administer and maintain it</td><td><a href="#operations">6</a></td></tr>
+      <tr><td>C4</td><td>Workload given current staffing</td><td><a href="#operations">6</a></td></tr>
+      <tr><td>C5</td><td>Institutional review and approval process</td><td><a href="#limits">7</a></td></tr>
+      <tr><td>C6</td><td>Least-privilege enforcement</td><td><a href="#identity">3</a>, <a href="#demos">4 (Demos A and C)</a></td></tr>
+      <tr><td>D1</td><td>Suitability of the Proxmox-based simulation as a validation step</td><td><a href="#built">1</a>, <a href="#results">5</a></td></tr>
+      <tr><td>D2</td><td>Integration without significant disruption</td><td><a href="#operations">6</a>, <a href="#limits">7</a></td></tr>
+      <tr><td>D3</td><td>Overall readiness for deployment</td><td>All sections</td></tr>
+      <tr><td>D4</td><td>Risks and mitigations (open-ended)</td><td><a href="#limits">7</a> and your own experience</td></tr>
+    </table></div>
+  </div>
+</section>
+
+<section id="built">
+  <h2>1. What was built</h2>
+  <p>The model was built in a Proxmox Virtual Environment test-bed of five virtual machines: a Windows Server 2022 domain controller
+     (DC01), an OPNsense firewall, one instructor workstation and two student workstations (Windows 11). A VLAN-aware virtual bridge
+     separates three zones: Students (VLAN 11), Instructor (VLAN 20) and Server (VLAN 30). Only the firewall carries all three VLANs,
+     so traffic between zones must pass it. All user accounts are synthetic; no real person’s data was used.</p>
+  <div class="arch"><img src="assets/architecture.svg" alt="Test-bed architecture: three VLAN zones connected only through the OPNsense firewall; DC01 in the Server zone"></div>
+  <p class="items">Helps with items: <span>D1</span></p>
+  <div class="figs"><figure><a href="assets/shots/71-pve-datacenter-vms.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/71-pve-datacenter-vms.png" alt="Proxmox VE Node with the Five ZTNA Virtual Machines"></a><figcaption><b>Figure H1. Proxmox VE Node with the Five ZTNA Virtual Machines</b><span>The five test-bed virtual machines (201 to 205) running on the Proxmox VE 9.2.2 host; the virtual machines of the first build (101 to 105) are kept stopped because their disks serve as the base images of the test-bed.</span></figcaption></figure><figure><a href="assets/shots/72-pve-vmbr1-vlan-aware.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/72-pve-vmbr1-vlan-aware.png" alt="VLAN-Aware Lab Bridge (vmbr1) on the Proxmox Host"></a><figcaption><b>Figure H3. VLAN-Aware Lab Bridge (vmbr1) on the Proxmox Host</b><span>The isolated lab bridge vmbr1 has VLAN awareness enabled, which separates the Student, Instructor, and Server zones at layer 2.</span></figcaption></figure><figure><a href="assets/shots/74-pve-vm202-hardware.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/74-pve-vm202-hardware.png" alt="OPNsense Virtual Hardware: WAN and VLAN Trunk Interfaces"></a><figcaption><b>Figure H2. OPNsense Virtual Hardware: WAN and VLAN Trunk Interfaces</b><span>The first network interface is attached to the management and WAN bridge; the second is attached to the lab bridge without a VLAN tag, so that it carries VLANs 11, 20, and 30 as a trunk.</span></figcaption></figure><figure><a href="assets/shots/73-pve-vm204-hardware.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/73-pve-vm204-hardware.png" alt="Student1 Virtual Hardware: Registered MAC Address and VLAN 11"></a><figcaption><b>Figure H4. Student1 Virtual Hardware: Registered MAC Address and VLAN 11</b><span>The network interface of Student1 uses its registered MAC address and is an access port in VLAN 11.</span></figcaption></figure><figure><a href="assets/shots/41-dc01-baseline-verification.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/41-dc01-baseline-verification.png" alt="Automated Baseline Verification of the Windows Configuration"></a><figcaption><b>Figure H5. Automated Baseline Verification of the Windows Configuration</b><span>All 62 automated checks of the Windows-side configuration passed before the trials.</span></figcaption></figure></div>
+</section>
+
+<section id="segmentation">
+  <h2>2. Network zones and the enforcement point</h2>
+  <p>OPNsense is the Policy Enforcement Point (PEP). Each zone has its own rules: workstations may reach only the domain services of
+     DC01 (Kerberos, LDAP, DNS, SMB for Group Policy) and DNS; instructors may also ping student workstations; DC01 may reach
+     workstations only for remote administration (WinRM). Everything else is denied and logged. Inside a zone, where traffic does
+     not pass the firewall, each workstation’s Windows firewall is controlled only by Group Policy and blocks connections from
+     other workstations.</p>
+  <p class="items">Helps with items: <span>C2</span> <span>C6</span></p>
+  <div class="figs"><figure><a href="assets/shots/68-opn-interface-assignments.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/68-opn-interface-assignments.png" alt="OPNsense Interface Assignments"></a><figcaption><b>Figure H18. OPNsense Interface Assignments</b><span>The WAN interface and the three VLAN interfaces of the lab network: Server (VLAN 30), Students (VLAN 11), and Instructor (VLAN 20).</span></figcaption></figure><figure><a href="assets/shots/69-opn-vlans.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/69-opn-vlans.png" alt="OPNsense VLAN Interfaces (VLANs 11, 20, and 30)"></a><figcaption><b>Figure H19. OPNsense VLAN Interfaces (VLANs 11, 20, and 30)</b><span>The VLAN devices and their tags on the lab interface.</span></figcaption></figure><figure><a href="assets/shots/70-opn-rules-asbuilt.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/70-opn-rules-asbuilt.png" alt="As-Built OPNsense Firewall Rule Set"></a><figcaption><b>Figure H20. As-Built OPNsense Firewall Rule Set</b><span>The complete rule set: unregistered-MAC gates first, per-zone pass rules for domain services, DNS, and ICMP, a logged default-deny rule per zone, WinRM from DC01 to the workstations only, and management on the WAN interface.</span></figcaption></figure></div>
+</section>
+
+<section id="identity">
+  <h2>3. Identity, roles and policy decisions</h2>
+  <p>The Policy Decision Point (PDP) is Active Directory together with a policy decision script on DC01. Access is granted to role
+     groups (students, instructors, administrators), never to individuals. Group Policy sets the logon rights: students may use any
+     student workstation, but not the instructor workstation or the server. For each request, the script checks the user (exists,
+     enabled, not locked, has a role), then the device (registered, domain member, MAC address matches), then the policy matrix,
+     and returns Allow or Deny with a reason code. Anything not explicitly allowed is denied.</p>
+  <p class="items">Helps with items: <span>C1</span> <span>C6</span></p>
+  <div class="figs"><figure><a href="assets/shots/10-dc01-ad-identity-rbac.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/10-dc01-ad-identity-rbac.png" alt="Active Directory Domain, Organizational Units, and Role Groups"></a><figcaption><b>Figure H6. Active Directory Domain, Organizational Units, and Role Groups</b><span>Users receive access only through membership in the role groups GG-Students, GG-Instructors, and GG-ZTNA-Admins; workstations through GG-LabWorkstations.</span></figcaption></figure><figure><a href="assets/shots/12-dc01-gpo-scoping.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/12-dc01-gpo-scoping.png" alt="Group Policy Objects and Their Links"></a><figcaption><b>Figure H8. Group Policy Objects and Their Links</b><span>Student and instructor workstations are in separate organizational units and receive different logon-rights policies; lockout and audit policies apply to the whole domain.</span></figcaption></figure><figure><a href="assets/shots/21-student1-gpo-rbac.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/21-student1-gpo-rbac.png" alt="Group Policy and Logon Rights on a Student Workstation"></a><figcaption><b>Figure H13. Group Policy and Logon Rights on a Student Workstation</b><span>Student1 is joined to the domain, has the student policies applied, and grants interactive logon rights by role group.</span></figcaption></figure><figure><a href="assets/shots/22-instructor1-gpo-rbac.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/22-instructor1-gpo-rbac.png" alt="Group Policy and Logon Rights on the Instructor Workstation"></a><figcaption><b>Figure H14. Group Policy and Logon Rights on the Instructor Workstation</b><span>Instructor1 allows instructors and administrators to log on; the student group is listed in the right that denies interactive logon.</span></figcaption></figure><figure><a href="assets/shots/40-dc01-pdp-decisions.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/40-dc01-pdp-decisions.png" alt="Live Policy Decisions of the PDP Against the Policy Matrix"></a><figcaption><b>Figure H10. Live Policy Decisions of the PDP Against the Policy Matrix</b><span>Ten live decisions under policy D202-ZTNA-1.1, each shown next to the decision expected from the policy matrix; all ten match.</span></figcaption></figure><figure><a href="assets/shots/20-student1-gpo-legal-notice-banner.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/20-student1-gpo-legal-notice-banner.png" alt="Pre-Logon Notice Applied by Group Policy"></a><figcaption><b>Figure H12. Pre-Logon Notice Applied by Group Policy</b><span>Users are informed before logon that authentication and authorization events are logged and evaluated.</span></figcaption></figure></div>
+</section>
+
+<section id="demos">
+  <h2>4. The five demonstrations</h2>
+  <p>These are the demonstrations performed in the live session. Each is shown here with the screens captured when it was run on the
+     test-bed.</p>
+  <div class="demo"><h3><span class="dl">Demo A</span> A student is refused at the instructor workstation</h3><p>In the live session, student01 signs in at Instructor1 with the correct password. The sign-in is refused because students do not hold the logon right on instructor workstations; the refusal is forwarded to the domain controller as event 4625.</p><div class="figs"><figure><a href="assets/shots/24-instructor1-student01-logon-denied.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/24-instructor1-student01-logon-denied.png" alt="Student Account Refused at the Instructor Workstation"></a><figcaption><b>Figure H16. Student Account Refused at the Instructor Workstation</b><span>student01 enters the correct password at Instructor1 and is refused because of the role, not the credential.</span></figcaption></figure><figure><a href="assets/shots/25-dc01-denied-logon-forwarded.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/25-dc01-denied-logon-forwarded.png" alt="Refused Logon Forwarded to the Domain Controller (Event 4625)"></a><figcaption><b>Figure H17. Refused Logon Forwarded to the Domain Controller (Event 4625)</b><span>The refusal in Figure H16 arrives at DC01 through Windows Event Forwarding as event 4625 with status 0xC000015B (logon type not granted).</span></figcaption></figure></div></div><div class="demo"><h3><span class="dl">Demo B</span> Repeated wrong passwords lock the account</h3><p>Five wrong passwords for the synthetic test account lock it; even the correct password is then refused. The domain controller records the lockout (event 4740), and the PDP returns DENY_USER_LOCKED. Lockouts expire after 15 minutes.</p><div class="figs"><figure><a href="assets/shots/13-dc01-lockout-audit.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/13-dc01-lockout-audit.png" alt="Account Lockout Policy and Audit Policy"></a><figcaption><b>Figure H9. Account Lockout Policy and Audit Policy</b><span>Lockout after 5 failed attempts for 15 minutes; logon, credential validation, Kerberos, account lockout, and user account management events are audited for success and failure.</span></figcaption></figure><figure><a href="assets/shots/14-dc01-lockout-in-action.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/14-dc01-lockout-in-action.png" alt="Account Lockout After Five Failed Attempts and the PDP Denial"></a><figcaption><b>Figure H28. Account Lockout After Five Failed Attempts and the PDP Denial</b><span>Five wrong passwords lock the synthetic probe account; the PDP returns DENY_USER_LOCKED, and the Security log of DC01 records the failed attempts, the lockout (4740), and the unlock (4767).</span></figcaption></figure></div></div><div class="demo"><h3><span class="dl">Demo C</span> Lateral movement between workstations is blocked</h3><p>From Student1, a connection to the domain controller’s login service succeeds, while connections to Instructor1 (another zone) and Student2 (same zone) time out. The firewall logs the cross-zone attempt; the same-zone attempt is dropped by Student2’s own firewall.</p><div class="figs"><figure><a href="assets/shots/23-student1-hostfw-lateral.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/23-student1-hostfw-lateral.png" alt="Workstation Firewall Policy and Blocked Lateral Connections"></a><figcaption><b>Figure H15. Workstation Firewall Policy and Blocked Lateral Connections</b><span>The host firewall denies inbound traffic by default and applies only Group Policy rules; probes from Student1 to Student2 and to Instructor1 are blocked.</span></figcaption></figure><figure><a href="assets/shots/65-student1-vlan-isolation.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/65-student1-vlan-isolation.png" alt="VLAN Isolation Between the Student and Instructor Zones"></a><figcaption><b>Figure H33. VLAN Isolation Between the Student and Instructor Zones</b><span>Student1 reaches Student2 in the same VLAN at layer 2, but Instructor1 in VLAN 20 cannot be reached without passing the firewall.</span></figcaption></figure><figure><a href="assets/shots/67-opn-s5-lateral-blocked.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/67-opn-s5-lateral-blocked.png" alt="Firewall Log of Blocked Lateral-Movement Attempts (S5, Trial 1)"></a><figcaption><b>Figure H34. Firewall Log of Blocked Lateral-Movement Attempts (S5, Trial 1)</b><span>Attempts from Student1 to Instructor1 are blocked by the default-deny rule, including the retransmitted packets.</span></figcaption></figure></div></div><div class="demo"><h3><span class="dl">Demo D</span> An unregistered device gets no address and no access</h3><p>Student2’s network card is given an unregistered MAC address. It receives no DHCP address, and everything it sends, even from a self-assigned address, is blocked and logged. With its registered MAC it receives its reserved address again.</p><div class="figs"><figure><a href="assets/shots/11-dc01-device-registry.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/11-dc01-device-registry.png" alt="Registered Workstations and Their MAC Addresses in Active Directory"></a><figcaption><b>Figure H7. Registered Workstations and Their MAC Addresses in Active Directory</b><span>Each workstation is a pre-staged directory object that holds its registered MAC address; the PDP denies unknown devices and MAC mismatches.</span></figcaption></figure><figure><a href="assets/shots/52-opn-dnsmasq-reservations.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/52-opn-dnsmasq-reservations.png" alt="DHCP Reservations of the Registered Workstations"></a><figcaption><b>Figure H21. DHCP Reservations of the Registered Workstations</b><span>The three registered MAC address to IP address reservations.</span></figcaption></figure><figure><a href="assets/shots/53-opn-dnsmasq-static-ranges.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/53-opn-dnsmasq-static-ranges.png" alt="Reservations-Only DHCP Ranges"></a><figcaption><b>Figure H22. Reservations-Only DHCP Ranges</b><span>Both workstation ranges are in reservations-only mode, so an unknown MAC address is never offered an address.</span></figcaption></figure><figure><a href="assets/shots/54-opn-known-macs-gate-rules.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/54-opn-known-macs-gate-rules.png" alt="Firewall Rules Blocking Unregistered MAC Addresses"></a><figcaption><b>Figure H23. Firewall Rules Blocking Unregistered MAC Addresses</b><span>Block-and-log rules for sources not bound to a registered MAC address are placed first on the Students and Instructor interfaces.</span></figcaption></figure><figure><a href="assets/shots/50-student2-registered-dhcp.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/50-student2-registered-dhcp.png" alt="Registered Workstation Receiving Its Reserved Address"></a><figcaption><b>Figure H24. Registered Workstation Receiving Its Reserved Address</b><span>With its registered MAC address, Student2 receives its reserved address and reaches the domain services of DC01.</span></figcaption></figure><figure><a href="assets/shots/51-student2-unregistered-mac.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/51-student2-unregistered-mac.png" alt="Workstation with an Unregistered MAC Address Denied an Address and Network Access"></a><figcaption><b>Figure H25. Workstation with an Unregistered MAC Address Denied an Address and Network Access</b><span>With an unregistered MAC address, the DHCP request times out and every probe to the gateway and DC01 is blocked, including from a self-assigned address.</span></figcaption></figure><figure><a href="assets/shots/55-opn-filterlog-rogue-blocked.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/55-opn-filterlog-rogue-blocked.png" alt="Firewall Log Showing the Unregistered Device Blocked"></a><figcaption><b>Figure H26. Firewall Log Showing the Unregistered Device Blocked</b><span>Traffic of the unregistered device is blocked and logged under the unregistered-MAC rule.</span></figcaption></figure><figure><a href="assets/shots/56-opn-dnsmasq-log-no-lease.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/56-opn-dnsmasq-log-no-lease.png" alt="DHCP Log Showing No Lease for the Unregistered Device"></a><figcaption><b>Figure H27. DHCP Log Showing No Lease for the Unregistered Device</b><span>The unregistered MAC address receives no address, while the registered Student1 is recognized and receives its lease.</span></figcaption></figure></div></div><div class="demo"><h3><span class="dl">Demo E</span> Security events are collected centrally</h3><p>Workstation security events reach the domain controller within seconds through Windows Event Forwarding; every PDP decision is an event in the domain controller’s Application log; network decisions are in the firewall log.</p><div class="figs"><figure><a href="assets/shots/30-dc01-wef-collector.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/30-dc01-wef-collector.png" alt="Windows Event Forwarding Subscription on the Domain Controller"></a><figcaption><b>Figure H11. Windows Event Forwarding Subscription on the Domain Controller</b><span>The subscription is active for all three workstations, with per-workstation counts of the forwarded logon, failed logon, credential validation, special-privilege logon, and process creation events.</span></figcaption></figure><figure><a href="assets/shots/64-opn-s6-network-events.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/64-opn-s6-network-events.png" alt="Firewall Log of Granted and Blocked Connections (S6, Trial 1)"></a><figcaption><b>Figure H36. Firewall Log of Granted and Blocked Connections (S6, Trial 1)</b><span>Granted connections from Student1 to DC01 are logged as pass entries and a blocked connection to Instructor1 as a block entry.</span></figcaption></figure></div></div>
+</section>
+
+<section id="results">
+  <h2>5. Measured performance</h2>
+  <p>Six engineering indicators were measured. Each was measured in five independent trials of 100 events; the five-trial mean was
+     compared with the threshold set in the methodology (Table 2 of the manuscript).</p>
+  <div class="tbl"><table>
+    <tr><th>Indicator</th><th>Threshold</th><th>Five-trial mean</th></tr>
+    <tr><td>Authentication latency (end-to-end at the workstation)</td><td class="n">≤ 300 ms (mean and 95th percentile)</td><td class="n">17.6 ms (95th percentile 19.8 ms)</td></tr>
+    <tr><td>Policy decision latency</td><td class="n">≤ 200 ms</td><td class="n">4.36 ms</td></tr>
+    <tr><td>RBAC enforcement accuracy</td><td class="n">≥ 99%</td><td class="n">100%</td></tr>
+    <tr><td>Unauthorized authentication blocking</td><td class="n">≥ 99%</td><td class="n">100%</td></tr>
+    <tr><td>Micro-segmentation rule drops (cross-zone attempts)</td><td class="n">≥ 99%</td><td class="n">100%</td></tr>
+    <tr><td>Logging completeness (granted and denied events)</td><td class="n">100%</td><td class="n">100%</td></tr>
+  </table></div>
+  <div class="box">
+    <b>How the measurements were made.</b>
+    <ul>
+      <li>Every test used a fixed list of cases prepared before the test; the expected result of each case was derived from the
+          policy, not from the system being tested.</li>
+      <li>Each trial was an independent run with the order of cases shuffled; times were measured inside the virtual machines.</li>
+      <li>Every figure was recalculated from the raw per-event records.</li>
+      <li>For logging and segmentation, deliberately broken records were added as a check, and the counting reported exactly those
+          as missing.</li>
+      <li>The first RBAC run scored 95%. The cause was an error in how the policy script read account attributes; it was corrected
+          and the test repeated (two of the three refinement cycles allowed by the methodology were used).</li>
+    </ul>
+  </div>
+  <p class="items">Helps with items: <span>D1</span> <span>D3</span></p>
+  <div class="figs"><figure><a href="assets/shots/61-student1-s1-auth-latency.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/61-student1-s1-auth-latency.png" alt="Authentication Latency Trials (S1)"></a><figcaption><b>Figure H29. Authentication Latency Trials (S1)</b><span>Five trials of 100 interactive logons; mean 17.6 ms and 95th percentile 19.8 ms, both within 300 ms.</span></figcaption></figure><figure><a href="assets/shots/60-dc01-s2-pdp-rbac-trials.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/60-dc01-s2-pdp-rbac-trials.png" alt="Policy Decision Latency and RBAC Accuracy Trials (S2)"></a><figcaption><b>Figure H30. Policy Decision Latency and RBAC Accuracy Trials (S2)</b><span>Five trials of 100 role-bound requests (refinement cycle 2); mean decision time 4.356 ms and accuracy 100%.</span></figcaption></figure><figure><a href="assets/shots/62-dc01-s3-unauth-blocking.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/62-dc01-s3-unauth-blocking.png" alt="Unauthorized Authentication Blocking Trials (S3)"></a><figcaption><b>Figure H31. Unauthorized Authentication Blocking Trials (S3)</b><span>Five trials of 60 workstation logon attacks and 40 PDP misuse requests; 100% denied, each denial attributed to its expected cause.</span></figcaption></figure><figure><a href="assets/shots/66-dc01-s5-segmentation.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/66-dc01-s5-segmentation.png" alt="Micro-Segmentation Trials (S5)"></a><figcaption><b>Figure H32. Micro-Segmentation Trials (S5)</b><span>Five trials of 100 cross-zone connection attempts; 100% dropped at the firewall, with the block-rule counters in agreement.</span></figcaption></figure><figure><a href="assets/shots/63-dc01-s6-logging-completeness.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/shots/63-dc01-s6-logging-completeness.png" alt="Logging Completeness Trials (S6)"></a><figcaption><b>Figure H35. Logging Completeness Trials (S6)</b><span>Five trials of 100 ground-truth events (logons, PDP decisions, and network connections; half granted, half denied); 100% found in their logs.</span></figcaption></figure></div>
+</section>
+
+<section id="operations">
+  <h2>6. What running it would involve</h2>
+  <p>The model uses only software that is already available or free: Active Directory and Group Policy (Windows Server) and the
+     open-source OPNsense firewall. Proxmox was used only for testing. The recurring administrative tasks would be:</p>
+  <div class="tbl"><table>
+    <tr><th>Task</th><th>When</th><th>What it involves</th></tr>
+    <tr><td>Onboard and offboard students</td><td>Each term</td><td>Create or disable accounts and add them to the student group; access follows from the group</td></tr>
+    <tr><td>Register a workstation</td><td>When a PC is added or its network card replaced</td><td>A DHCP reservation and registered-MAC entry on the firewall, and a computer object with its MAC address in Active Directory</td></tr>
+    <tr><td>Change who may access what</td><td>When roles or policy change</td><td>Edit the role groups or the firewall rules, and keep the policy matrix and firewall consistent</td></tr>
+    <tr><td>Respond to lockouts</td><td>As needed</td><td>Lockouts expire after 15 minutes; staff can unlock earlier from Active Directory</td></tr>
+    <tr><td>Review logs</td><td>Routinely</td><td>Forwarded workstation events and PDP decisions on the domain controller; the firewall log on OPNsense</td></tr>
+  </table></div>
+  <p>The skills involved are Active Directory and Group Policy administration, VLAN configuration on the switches, and OPNsense firewall
+     administration. In the actual laboratory the VLANs would be configured on the access switches instead of a virtual bridge.</p>
+  <p class="items">Helps with items: <span>C1</span> <span>C3</span> <span>C4</span> <span>D2</span></p>
+</section>
+
+<section id="limits">
+  <h2>7. Limitations and changes from the plan</h2>
+  <ul>
+    <li>The test-bed has five virtual machines and synthetic accounts. The actual laboratory has more users and devices, and response
+        times may be higher under real load.</li>
+    <li>Lateral movement was tested with TCP connection attempts only.</li>
+    <li>MAC addresses can be spoofed. The model also requires domain membership; port-based authentication (IEEE 802.1X) is recommended
+        for a production deployment if the switches support it.</li>
+    <li>The firewall log is kept on the firewall itself; a production deployment should forward it to a central log server.</li>
+    <li>Changes from the original plan: Windows Server 2022 instead of 2019; reservations-only DHCP with no dynamic range; the
+        firewall’s local log instead of a remote syslog server.</li>
+    <li>Defects found during testing (account-lockout auditing not enabled, workstation firewall logging inactive, the policy script
+        error above) were corrected and are listed as recommendations in Chapter 3.</li>
+    <li>Moving from the test-bed to the actual laboratory would require the University’s review and approval of the new controls.</li>
+  </ul>
+  <p class="items">Helps with items: <span>C5</span> <span>D2</span> <span>D4</span></p>
+</section>
+
+<section>
+  <h2>Next step</h2>
+  <p>Please complete the Post-Simulation Readiness Evaluation (Appendix B, Part II) and the informed consent form attached to our email,
+     and return them by email. If you would like a live online demonstration or have any questions, reply to the email and we will
+     arrange it.</p>
+  <p class="muted">Source code, the policy matrix, test designs and per-trial results are in the
+     <a href="https://github.com/kcayboen/zero-trust-lab-ztna">project repository</a>. This review page is frozen as release
+     <code>evaluation-2026-11-19</code>.</p>
+</section>
+</main>
+<footer><div class="wrap">Undergraduate thesis, School of Information Technology, University of Baguio, 2026.</div></footer>
+</body>
+</html>

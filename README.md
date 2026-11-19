@@ -6,6 +6,10 @@ It passed all six.**
 Undergraduate thesis project (team), University of Baguio, 2026. **Case-study site:** see the `docs/` folder
 (published with GitHub Pages).
 
+> **Evaluators (Phase 3, Post-Simulation Readiness Evaluation):** please use the review page
+> **https://kcayboen.github.io/zero-trust-lab-ztna/evaluation.html**. It walks through the test-bed, the
+> five demonstrations, the results and the limitations, with all 36 Appendix H figures.
+
 ![Architecture of the test-bed](docs/assets/architecture.svg)
 
 ## The problem
@@ -110,7 +114,8 @@ recommendations for a production rollout.
 | [`code/tests`](code/tests) | Case generation, network trial runner, log counters, SOP 3 table generators |
 | [`design`](design) | Policy matrix, firewall rule set, test designs for segmentation and logging |
 | [`results`](results) | Per-trial result tables |
-| [`docs`](docs) | Case-study website and screenshots |
+| [`docs`](docs) | Case-study website, evaluator review page (`evaluation.html`) and screenshots |
+| [`tools`](tools) | Generator for the evaluator page |
 
 Lab-specific paths and addresses are left as they were in the test-bed. Credentials and configuration backups are
 not included.
